@@ -1,0 +1,26 @@
+{
+  "name": "expressproject",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wqudhqdh/express-.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wqudhqdh/express-/issues"
+  },
+  "homepage": "https://github.com/wqudhqdh/express-#readme",
+  "dependencies": {
+    "art-template": "^4.13.2",
+    "express-art-template": "^1.0.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.2.4",
+    "nodemailer": "^6.7.2"
+  }
+}
