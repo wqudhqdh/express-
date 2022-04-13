@@ -29,7 +29,6 @@ let mail = {
         //发送邮件
         this.transporter.sendMail(mailOptions, (error, info) => {
             if (error) {
-                console.log(error)
                 callback(-1); // 失败
                 return ;
             }

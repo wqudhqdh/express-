@@ -15,11 +15,50 @@ var projectSchema = new Schema({
         type: String,
         required: true
     },
-    fetchList: [],
+    imgSrc: [],
     description: {
         type: String,
         required: true
     },
-  
+    targetMoney: {
+        type: Number,
+        required: true
+    },
+    haveMoney: {
+        type: Number,
+        default: 0,
+    },
+      havedMoney: {
+        type: Number,
+        default: 0,
+    },
+      residueMoney: {
+        type: Number,
+        default: 0,
+    },
+        count: {
+        type: Number,
+        default: 0,
+    },
+    state: {
+        type: Number,
+        default:0,
+    },
+    userid: {
+        type: String,
+        required: true,
+    },
+    username: {
+        type: String,
+        required: true,
+    },
+    reason: {
+        type: String,
+        default: '',
+    },
+        date: {
+        type: Date,
+        default: Date.now
+    },
 })
 module.exports = mongoose.model("project", projectSchema, "project");

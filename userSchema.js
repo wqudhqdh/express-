@@ -24,17 +24,21 @@ var userSchema = new Schema({
         type: String,
         required: true
     },
-    account: {
-        type: Number,
-        required: true
-    },
-    imgSrc: {
-        type: String,
-        required: true
-    },
+    imgSrc: [],
     level: {
         type: Number,
         required: true
+    },
+    authentication: {
+        type: {
+            name: String,
+            card: String,
+            idcard: String,
+        }
+    },
+    balance: {
+        type: Number,
+        default: 0,
     }
 
 })

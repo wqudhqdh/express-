@@ -6,8 +6,6 @@ let express = require("express")
 let router = express.Router()
     // 账号登录(手机号/用户名)
 router.post('/loginAccount', (req, res) => {
-    console.log(req.body.account)
-    console.log(req.body.password)
         user.find({
             $or: [{
                 "username": req.body.account,
@@ -26,7 +24,6 @@ router.post('/loginAccount', (req, res) => {
                 // 生成token主体
                 let token = jwt.sign(content, "supermarett", { expiresIn: 3600 });
                 res.json({ data, token: token });
-                console.log(data.username)
             }
         })
     })
@@ -80,12 +77,10 @@ router.post("/register", (req, res) => {
     "email": fields.email,
     "password": fields.password1,
     "paypassword": fields.password2,
-    "account": 0,
-    "imgSrc": " ",
+    "imgSrc":fields.imgSrc,
     "level": 0
     });
     s.save((err, data) => {
-        console.log(data);
         if (err) {
         res.send("faile")
         return;
@@ -100,21 +95,16 @@ router.post("/register", (req, res) => {
     // 编辑用户
 router.post('/modifyUser', (req, res) => {
        const users = req.body.user;
-        user.findOneAndUpdate({ "_id": users._id }, { $set: { 'username': users.username,"email": users.email,"phone": users.phone } }, (err, data) => {
+    user.findOneAndUpdate({ "_id": users._id }, { $set: { 'username': users.username, "email": users.email, "phone": users.phone, "imgSrc": users.imgSrc } }, {'new':true},(err, data) => {
             if (err) {
                 res.send("error")
             } else {
-                res.send("success");
-            }
-        })
-    })
-    // 修改支付密码
-router.post('/modifyPayPassword', (req, res) => {
-        user.findOneAndUpdate({ "_id": req.body.id }, { $set: { 'paypassword': req.body.value } }, (err, data) => {
-            if (err) {
-                res.send("error")
-            } else {
-                res.send("success");
+         let content = {
+         username: data.username
+        };
+                // 生成token主体
+                let token = jwt.sign(content, "supermarett", { expiresIn: 3600 });
+                res.json({ data, token: token });
             }
         })
     })
@@ -140,8 +130,46 @@ router.post('/delUser', (req, res) => {
 })
     // 搜索用户
 router.get('/searchUser', (req, res) => {
-    user.find({ "username": req.query.value}, (err, data) => {
+    user.find({
+        $or: [
+            { "username": req.query.value },
+            { "_id": req.query.value, }]
+    },
+        (err, data) => {
         res.send(data);
+    })
+})
+
+    // 实名认证
+router.post('/authentication', (req, res) => {
+    const users = req.body.user;
+    user.findOneAndUpdate({ "_id": users._id }, { $set: { 'authentication': users.authentication } }, {"new":true}, (err, data) => {
+            if (err) {
+                res.send("error")
+            } else {
+                let content = {
+                    username: data.username
+                };
+                // 生成token主体
+                let token = jwt.sign(content, "supermarett", { expiresIn: 3600 });
+                res.json({ data, token: token });
+            }
+        })
+})
+// 修改余额
+router.post('/modifyBalance', (req, res) => {
+    const users = req.body.user;
+    user.findOneAndUpdate({ "_id": users._id }, { $set: { 'balance': users.balance }},{new: true}, (err, data) => {
+               if (err) {
+                res.send("error")
+            } else {
+                let content = {
+                    username: data.username
+                   };
+                // 生成token主体
+                let token = jwt.sign(content, "supermarett", { expiresIn: 3600 });
+                res.json({ data, token: token });
+            }
     })
 })
 module.exports = router
