@@ -11,6 +11,10 @@ var replySchema = new Schema({
         type: String,
         required: true
     },
+    username: {
+        type: String,
+        required: true
+    },
    date: {
         type: Date,
         default: Date.now
@@ -19,6 +23,11 @@ var replySchema = new Schema({
         type: String,
         required: true
     },
+      replyusername: {
+        type: String,
+        required: true
+    },
+       replyimgSrc:[],
      content: {
         type: String,
         required: true
@@ -26,6 +35,6 @@ var replySchema = new Schema({
     belongid: {
         type: String,
         required: true,
-     }
+    }
 })
 module.exports = mongoose.model("reply", replySchema, "reply");

@@ -7,7 +7,9 @@ router.post('/addComment', (req, res) => {
     let s = new comment ({
     "projectid": fields.projectid,
     "userid": fields.userid,
-    "content": fields.content,
+        "content": fields.content,
+        "username": fields.username,
+        "imgSrc": fields.imgSrc,
     });
     s.save((err, data) => {
         if (err) {

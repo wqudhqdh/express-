@@ -8,12 +8,15 @@ router.post('/addReplyComment', (req, res) => {
     "projectid": fields.projectid,
     "userid": fields.userid,
     "content": fields.content,
-        "replyuserid": fields.replyuserid,
     "belongid": fields.belongid,
+    "replyuserid": fields.replyuserid,
+    "replyusername": fields.replyusername,
+    "replyimgSrc": fields.replyimgsrc,
+    "username": fields.username,
     });
     s.save((err, data) => {
         if (err) {
-        res.send("faile")
+            res.send(err);
         return;
         } else {
         res.send("success")

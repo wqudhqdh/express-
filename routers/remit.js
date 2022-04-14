@@ -47,6 +47,19 @@ router.get('/fetchRemit', (req, res) => {
 
 })
 
+router.get('/fetchRemitbyproject', (req, res) => {
+       remit.find({'projectid':req.query.projectid }, (err, data) => {
+        if (err) {
+            res.send(err);
+            return;
+        } else {
+            res.send(data);
+            return;
+        }
+    })
+
+})
+
 router.get('/changeRemitState', (req, res) => {
     remit.findOneAndUpdate({ "_id": req.query.id }, { $set: { 'state': req.query.type } }, (err, data) => {
         if (err) {

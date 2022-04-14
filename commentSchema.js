@@ -19,5 +19,10 @@ var commentSchema = new Schema({
         type: String,
         required: true
     },
+    username: {
+        type: String,
+        required: true,
+    },
+    imgSrc: []
 })
 module.exports = mongoose.model("comments", commentSchema, "comments");
