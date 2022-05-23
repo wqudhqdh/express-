@@ -60,6 +60,21 @@ router.get('/fetchRemitbyproject', (req, res) => {
 
 })
 
+
+router.get('/fetchRemitbyprojectName', (req, res) => {
+    console.log(req.query.name);
+       remit.find({'projectname':req.query.name }, (err, data) => {
+        if (err) {
+            res.send(err);
+            return;
+        } else {
+            res.send(data);
+            return;
+        }
+    })
+
+})
+
 router.get('/changeRemitState', (req, res) => {
     remit.findOneAndUpdate({ "_id": req.query.id }, { $set: { 'state': req.query.type } }, (err, data) => {
         if (err) {

@@ -94,11 +94,13 @@ router.post("/register", (req, res) => {
 
     // 编辑用户
 router.post('/modifyUser', (req, res) => {
-       const users = req.body.user;
+    const users = req.body.user;
+    console.log(users.username)
     user.findOneAndUpdate({ "_id": users._id }, { $set: { 'username': users.username, "email": users.email, "phone": users.phone, "imgSrc": users.imgSrc } }, {'new':true},(err, data) => {
             if (err) {
                 res.send("error")
             } else {
+                console.log(data);
          let content = {
          username: data.username
         };
@@ -131,12 +133,30 @@ router.post('/delUser', (req, res) => {
     // 搜索用户
 router.get('/searchUser', (req, res) => {
     user.find({
-        $or: [
-            { "username": req.query.value },
-            { "_id": req.query.value, }]
-    },
-        (err, data) => {
-        res.send(data);
+        $or: [{
+                "username": req.query.value,
+            }, {
+                "phone": req.query.value,
+        }, {
+                "email": req.query.value,
+            }]
+    }, (err, data) => {
+        if (err) {
+            res.send(err);
+        } else {
+            res.send(data);
+        }
+    })
+})
+
+    // 搜索用户
+router.get('/searchUserById', (req, res) => {
+    user.find({"_id": req.query.id}, (err, data) => {
+        if (err) {
+            res.send(err);
+        } else {
+            res.send(data);
+        }
     })
 })
 

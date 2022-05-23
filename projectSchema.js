@@ -11,10 +11,10 @@ var projectSchema = new Schema({
         type: String,
         required: true
     },
-    type: {
-        type: String,
-        required: true
-    },
+    // type: {
+    //     type: String,
+    //     required: true
+    // },
     imgSrc: [],
     description: {
         type: String,

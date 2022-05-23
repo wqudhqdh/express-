@@ -38,12 +38,32 @@ router.get('/getAllDonate', (req, res) => {
 
     // 获取每个人捐赠明细
 router.get('/getDonateByuserid', (req, res) => {
-     donate.find({ "donateuserid": req.query.userid},(err, data) => {
+    if (req.query.userid) {
+        donate.find({ "donateuserid": req.query.userid }, (err, data) => {
             if (err) {
                 res.send("error")
             } else {
                 res.send(data)
             }
         })
+    } else {
+   donate.find( (err, data) => {
+            if (err) {
+                res.send("error")
+            } else {
+                res.send(data)
+            }
+        })       
+    }
+})
+
+router.get('/getDonateByProjectid', (req, res) => {
+    donate.find({ 'projectid': req.query.projectid }, (err, data) => {
+        if (err) {
+            res.send(err);
+        } else {
+            res.send(data);
+        }
+    })
 })
 module.exports = router

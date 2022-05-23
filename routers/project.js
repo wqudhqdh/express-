@@ -10,9 +10,8 @@ router.post('/seekHelp', (req, res) => {
     "imgSrc": fields.fileList,
     "description": fields.description,
     "targetMoney": fields.targetMoney,
-        "type": fields.type,
-        "userid": fields.userid,
-     "username": fields.username
+    "userid": fields.userid,
+    "username": fields.username
     });
     s.save((err, data) => {
         if (err) {
@@ -145,7 +144,7 @@ router.get('/changeHavedMoney', (req, res) => {
     console.log(req.query.id);
     project.findById({ "_id": req.query.id }, (err, data) => {
         console.log(data);
-        const resultMoney = data.havedMoney + req.query.money;
+        const resultMoney = Number(data.havedMoney) + Number(req.query.money);
         project.findOneAndUpdate({ '_id': req.query.id }, { $set: { "havedMoney": resultMoney } }, (err, data) => {
             if (err) {
                 res.send(err);

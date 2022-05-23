@@ -32,4 +32,14 @@ router.get('/getAllComment', (req, res) => {
             }
         })
 })
+
+router.get('/delcomment', (req, res) => {
+    comment.remove({ "_id": req.query.id }, (err, data) => {
+        if (err) {
+            res.send(err)
+        } else {
+            res.send(data);
+        }
+    })
+})
 module.exports = router
